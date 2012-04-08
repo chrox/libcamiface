@@ -102,6 +102,41 @@ IF(ARAVIS_FOUND)
 
 ENDIF(ARAVIS_FOUND)
 
+# v4l2 backend ------------------
+
+IF(UNIX AND NOT APPLE)
+
+  set(v4l2_SRCS ${common_SRCS}
+      cam_iface_v4l2.c
+      )
+  set(mega_SRCS ${mega_SRCS}
+      cam_iface_v4l2.c
+     )
+
+  ADD_LIBRARY(cam_iface_v4l2 SHARED ${v4l2_SRCS})
+  TARGET_LINK_LIBRARIES(cam_iface_v4l2 ${V4L2_LIBRARIES})
+  set_target_properties(cam_iface_v4l2 PROPERTIES VERSION ${CAM_IFACE_VERSION}
+    SOVERSION ${CAM_IFACE_SOVERSION})
+
+  ADD_LIBRARY(cam_iface_v4l2-static STATIC ${v4l2_SRCS})
+  set_target_properties(cam_iface_v4l2-static PROPERTIES OUTPUT_NAME "cam_iface_v4l2")
+
+  SET(mega_LINK_LIBS ${mega_LINK_LIBS} ${V4L2_LIBRARIES})
+  SET(mega_DEFINE
+      ${mega_DEFINE}
+      -DMEGA_BACKEND_V4L2
+      )
+  SET_TARGET_PROPERTIES(cam_iface_v4l2 PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+  SET_TARGET_PROPERTIES(cam_iface_v4l2-static PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+
+  INSTALL(TARGETS cam_iface_v4l2 cam_iface_v4l2-static
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+  )
+
+ENDIF(UNIX AND NOT APPLE)
+
 # prosilica_gige backend ------------------
 
 IF(PROSILICA_GIGE_FOUND)

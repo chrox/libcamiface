@@ -65,6 +65,12 @@ IF(ARAVIS_FOUND)
   include_directories(${ARAVIS_INCLUDE_DIRS})
 ENDIF(ARAVIS_FOUND)
 
+# Backend: v4l2 ---------------------------------
+
+IF(UNIX AND NOT APPLE)
+  set(all_backends ${all_backends} v4l2)
+ENDIF(UNIX AND NOT APPLE)
+
 # Backend: Prosilica --------------------------------
 
 FIND_PACKAGE(ProsilicaGigE)

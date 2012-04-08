@@ -159,6 +159,11 @@ typedef enum CameraPixelCoding
   CAM_IFACE_MONO8, /* pure monochrome (no Bayer) */
   CAM_IFACE_YUV411,
   CAM_IFACE_YUV422,
+  CAM_IFACE_YUYV,  /* 5 different variations of YUV422 */
+  CAM_IFACE_YYUV,
+  CAM_IFACE_YVYU,
+  CAM_IFACE_UYVY,
+  CAM_IFACE_VYUY,
   CAM_IFACE_YUV444,
   CAM_IFACE_RGB8,
   CAM_IFACE_MONO16,

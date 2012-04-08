@@ -213,6 +213,23 @@ void cam_iface_startup(void) {
       fprintf(stderr,"ERROR: don't know backend %s\n",backend_names[i]);
       exit(1);
 #endif
+    } else if (!strcmp(backend_names[i],"staticv4l2")) {
+#ifdef MEGA_BACKEND_V4L2
+#include "cam_iface_v4l2.h"
+      this_backend_info->have_error = v4l2_cam_iface_have_error;
+      this_backend_info->clear_error = v4l2_cam_iface_clear_error;
+      this_backend_info->get_error_string = v4l2_cam_iface_get_error_string;
+      this_backend_info->startup = v4l2_cam_iface_startup;
+      this_backend_info->shutdown = v4l2_cam_iface_shutdown;
+      this_backend_info->get_num_cameras = v4l2_cam_iface_get_num_cameras;
+      this_backend_info->get_num_modes = v4l2_cam_iface_get_num_modes;
+      this_backend_info->get_camera_info = v4l2_cam_iface_get_camera_info;
+      this_backend_info->get_mode_string = v4l2_cam_iface_get_mode_string;
+      this_backend_info->get_constructor_func = v4l2_cam_iface_get_constructor_func;
+#else
+      fprintf(stderr,"ERROR: don't know backend %s\n",backend_names[i]);
+      exit(1);
+#endif
     } else if (!strcmp(backend_names[i],"staticprosilica_gige")) {
 #ifdef MEGA_BACKEND_PROSILICA_GIGE
 #include "cam_iface_prosilica_gige.h"
@@ -260,6 +277,40 @@ void cam_iface_startup(void) {
       this_backend_info->get_camera_info = pgr_flycapture_cam_iface_get_camera_info;
       this_backend_info->get_mode_string = pgr_flycapture_cam_iface_get_mode_string;
       this_backend_info->get_constructor_func = pgr_flycapture_cam_iface_get_constructor_func;
+#else
+      fprintf(stderr,"ERROR: don't know backend %s\n",backend_names[i]);
+      exit(1);
+#endif
+    } else if (!strcmp(backend_names[i],"staticquicktime")) {
+#ifdef MEGA_BACKEND_QUICKTIME
+#include "cam_iface_quicktime.h"
+      this_backend_info->have_error = quicktime_cam_iface_have_error;
+      this_backend_info->clear_error = quicktime_cam_iface_clear_error;
+      this_backend_info->get_error_string = quicktime_cam_iface_get_error_string;
+      this_backend_info->startup = quicktime_cam_iface_startup;
+      this_backend_info->shutdown = quicktime_cam_iface_shutdown;
+      this_backend_info->get_num_cameras = quicktime_cam_iface_get_num_cameras;
+      this_backend_info->get_num_modes = quicktime_cam_iface_get_num_modes;
+      this_backend_info->get_camera_info = quicktime_cam_iface_get_camera_info;
+      this_backend_info->get_mode_string = quicktime_cam_iface_get_mode_string;
+      this_backend_info->get_constructor_func = quicktime_cam_iface_get_constructor_func;
+#else
+      fprintf(stderr,"ERROR: don't know backend %s\n",backend_names[i]);
+      exit(1);
+#endif
+    } else if (!strcmp(backend_names[i],"staticquicktime")) {
+#ifdef MEGA_BACKEND_V4L2
+#include "cam_iface_v4l2.h"
+      this_backend_info->have_error = v4l2_cam_iface_have_error;
+      this_backend_info->clear_error = v4l2_cam_iface_clear_error;
+      this_backend_info->get_error_string = v4l2_cam_iface_get_error_string;
+      this_backend_info->startup = v4l2_cam_iface_startup;
+      this_backend_info->shutdown = v4l2_cam_iface_shutdown;
+      this_backend_info->get_num_cameras = v4l2_cam_iface_get_num_cameras;
+      this_backend_info->get_num_modes = v4l2_cam_iface_get_num_modes;
+      this_backend_info->get_camera_info = v4l2_cam_iface_get_camera_info;
+      this_backend_info->get_mode_string = v4l2_cam_iface_get_mode_string;
+      this_backend_info->get_constructor_func = v4l2_cam_iface_get_constructor_func;
 #else
       fprintf(stderr,"ERROR: don't know backend %s\n",backend_names[i]);
       exit(1);
